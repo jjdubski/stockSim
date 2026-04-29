@@ -1,4 +1,4 @@
-<img width="800" height="374" alt="image" src="https://github.com/user-attachments/assets/6147bdbd-bb48-498b-9bcf-7bdac39d8989" />
+<img align="center" width="800" height="374" alt="StockSim.gif" src="https://github.com/user-attachments/assets/37b5ce8b-3317-4879-bda6-2cf248079be9" />
 
 # stockSim — Java Stock Market Simulation
 
