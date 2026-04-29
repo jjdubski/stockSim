@@ -116,9 +116,4 @@ If you prefer an IDE: import this as a Java project (mark `src` as source root) 
 - Price handling: [src/price/Price.java](src/price/Price.java) and [src/price/PriceFactory.java](src/price/PriceFactory.java)
 - GUI observer: [src/gui/Gui.java](src/gui/Gui.java)
 
-## Next steps (suggested)
-
-- Run the examples above to verify runtime behavior.
-- If you want, I can compile and run `Main` locally (or prepare a run script) and share the output.
-
 ---
