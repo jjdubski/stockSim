@@ -1,3 +1,5 @@
+<img width="800" height="374" alt="image" src="https://github.com/user-attachments/assets/6147bdbd-bb48-498b-9bcf-7bdac39d8989" />
+
 # stockSim — Java Stock Market Simulation
 
 A small, educational stock market simulation and library implemented in Java. The project models product order books, orders and quotes, matching/trading logic, a current-market publisher/subscriber system, and a simple GUI for observing market updates. It is intended for learning, experimentation, and lightweight simulation.
