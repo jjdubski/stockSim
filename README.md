@@ -8,9 +8,23 @@ A small, educational stock market simulation and library implemented in Java. Th
 
 - Order book matching (price/time priority) implemented in `book` package
 - `Price` and `PriceFactory` use integer cents to avoid floating-point issues
-- `ProductManager` and `UserManager` provide high-level APIs and are singletons
+- `ProductManager` and `UserManager` provide high-level APIs
 - `TradingSim` runs an automated market simulation and hooks into the GUI
 - A simple Swing-based GUI (in `gui`) shows current market/top-of-book updates
+
+## Design Patterns
+
+The project contains several common programming patterns used throughout the codebase:
+
+- **Singleton:** ProductManager, UserManager, CurrentMarketPublisher, CurrentMarketTracker — see [src/book/ProductManager.java](src/book/ProductManager.java), [src/user/UserManager.java](src/user/UserManager.java), [src/market/CurrentMarketPublisher.java](src/market/CurrentMarketPublisher.java), [src/market/CurrentMarketTracker.java](src/market/CurrentMarketTracker.java).
+- **Factory + Flyweight:** `PriceFactory.makePrice(...)` creates and caches immutable `Price` instances — see [src/price/PriceFactory.java](src/price/PriceFactory.java) and [src/price/Price.java](src/price/Price.java).
+- **Value Object / Immutable:** `Price` and `CurrentMarketSide` are immutable value objects used across the model — see [src/price/Price.java](src/price/Price.java) and [src/market/CurrentMarketSide.java](src/market/CurrentMarketSide.java).
+- **Observer / Publisher–Subscriber:** `CurrentMarketPublisher` + `CurrentMarketObserver` with subscribers like `User` and `Gui` — see [src/market/CurrentMarketPublisher.java](src/market/CurrentMarketPublisher.java), [src/market/CurrentMarketObserver.java](src/market/CurrentMarketObserver.java), [src/user/User.java](src/user/User.java), [src/gui/Gui.java](src/gui/Gui.java).
+- **DTO (Data Transfer Object):** `TradableDTO` carries order/quote state between components (`Order`, `QuoteSide`, `ProductBook`, `User`) — see [src/tradable/TradableDTO.java](src/tradable/TradableDTO.java).
+- **Facade / Manager :** `ProductManager` and `UserManager` provide high-level APIs and maintain in-memory registries (HashMaps) acting as facades/repositories — see [src/book/ProductManager.java](src/book/ProductManager.java) and [src/user/UserManager.java](src/user/UserManager.java).
+- **Exceptions (checked exceptions):** package-specific custom exceptions for validation and domain errors (e.g., `DataValidationException`, `InvalidInput`) are used throughout — see [src/exceptions/DataValidationException.java](src/exceptions/DataValidationException.java) and [src/tradable/InvalidInput.java](src/tradable/InvalidInput.java).
+- **Event-driven / MVC separation:** GUI components (`Gui`, `UserDisplayManager`, `MarketDisplay`) receive model updates via the publisher/observer, separating UI from model logic — see [src/gui/Gui.java](src/gui/Gui.java) and [src/gui/UserDisplayManager.java](src/gui/UserDisplayManager.java).
+- **Guard clauses (Defensive Validation):** Domain objects validate inputs in constructors and setters (`Order`, `Quote`, `ProductBook`) to enforce invariants — see [src/tradable/Order.java](src/tradable/Order.java), [src/tradable/Quote.java](src/tradable/Quote.java), [src/book/ProductBook.java](src/book/ProductBook.java).
 
 ## Requirements
 
@@ -98,16 +112,6 @@ If you prefer an IDE: import this as a Java project (mark `src` as source root) 
 - To add products or users programmatically, call `ProductManager.getInstance().addProduct(...)` or `UserManager.getInstance().init(...)`.
 - The simulation parameters (loop count, sleep duration) are in `sim/TradingSim.java` — adjust the `for` loop or sleep interval to change runtime behavior.
 - GUI updates are executed by the `Gui` and `UserDisplayManager`; `Gui.shutdown()` is called by the sim after completion.
-
-## Common tasks
-
-- Run a short simulation without GUI: modify `TradingSim` to avoid creating `Gui`, or run `Main2`/`Main3` for console-only demos.
-- Change parsing/formatting of prices: edit `src/price/PriceFactory.java` and `src/price/Price.java`.
-
-## Notes and caveats
-
-- Some `Main` classes contain comments suggesting imports might need to be adjusted depending on how you import the project into an IDE — if you see compile errors, make sure `src` is a source root and that package structure is preserved.
-- The `trash/` folder contains older copies — ignore it in builds.
 
 ## Where to look in the code
 
