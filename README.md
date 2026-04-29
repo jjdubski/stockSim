@@ -2,7 +2,7 @@
 
 # stockSim — Java Stock Market Simulation
 
-A small, educational stock market simulation and library implemented in Java. The project models product order books, orders and quotes, matching/trading logic, a current-market publisher/subscriber system, and a simple GUI for observing market updates. It is intended for learning, experimentation, and lightweight simulation.
+A small, educational stock market simulation implemented in Java. The project models product order books, orders and quotes, matching/trading logic, a current-market publisher/subscriber system, and a simple GUI for observing market updates. Features object-oriented programming (OOP) principles and design patterns.
 
 ## Highlights
 
@@ -101,19 +101,19 @@ If you prefer an IDE: import this as a Java project (mark `src` as source root) 
 - `ProductBook.tryTrade()` repeatedly checks top-of-book buy and sell prices; if top buy >= top sell, it trades the minimum available quantity and records fills/cancellations.
 - After changes, `CurrentMarketTracker` is updated and publishes to subscribers via `CurrentMarketPublisher`.
 
-## Design notes and invariants
+## Design notes
 
 - `Price` is stored as an integer number of cents. Use `PriceFactory` to construct `Price` objects correctly and consistently.
 - `ProductManager` and `UserManager` are singletons — use `getInstance()` to access them.
 - `Order` and `Quote` constructors validate inputs (user IDs must be 3 letters, product symbols 1–5 letters, volumes within limits, and price non-null).
 
-## Extending & debugging
+## Extending or adjusting the simulation
 
 - To add products or users programmatically, call `ProductManager.getInstance().addProduct(...)` or `UserManager.getInstance().init(...)`.
 - The simulation parameters (loop count, sleep duration) are in `sim/TradingSim.java` — adjust the `for` loop or sleep interval to change runtime behavior.
 - GUI updates are executed by the `Gui` and `UserDisplayManager`; `Gui.shutdown()` is called by the sim after completion.
 
-## Where to look in the code
+## References
 
 - Simulation entry: [src/sim/TradingSim.java](src/sim/TradingSim.java)
 - Core book: [src/book/ProductBook.java](src/book/ProductBook.java)
